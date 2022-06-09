@@ -96,16 +96,45 @@ def tobs():
 
     return jsonify(tobs)
 
+@app.route('/api/v1.0/<start>')
+def start_date()
+    session = Session(engine)
+    results = session.query(func.min(measurement.tobs), 
+                            func.avg(measurement.tobs), 
+                            func.max(measurement.tobs)).\
+                            filter(measurement.date >= start).all())
+    session.close()
 
+    tobs = []
+    for min, max, avg in results
+        tobs_dict = {}
+        tobs_dict["Min"] = min
+        tobs_dict["Max"] = max
+        tobs_dict["Avg"] = avg
+        tobs.append(tobs_dict)
 
+return jsonify(tobs)
 
+@app.route('/api/v1.0/<start>/<stop>')
+def dates()
+    session = Session(enigne)
+    results = session.query(func.min(measurement.tobs), 
+                            func.avg(measurement.tobs), 
+                            func.max(measurement.tobs)).\
+                            filter(measurement.date >= start).\
+                            filter(measurement <= end).all()
+                            )
+    session.close()
 
+    tobs = []
+    for min, max, avg in results
+        tobs_dict = {}
+        tobs_dict["Min"] = min
+        tobs_dict["Max"] = max
+        tobs_dict["Avg"] = avg
+        tobs.append(tobs_dict)
 
-
-
-
-
-
+return jsonify(tobs)
 
 
 if __name__ == '__main__':
